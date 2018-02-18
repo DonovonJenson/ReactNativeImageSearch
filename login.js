@@ -7,7 +7,8 @@ import {
   Text,
   TextInput,
   View,
-  Image
+  Image,
+  TouchableHighlight,
 } from 'react-native';
 
 export default class Login extends Component<Props> {
@@ -23,6 +24,9 @@ export default class Login extends Component<Props> {
 				<TextInput style ={styles.input}
 				placeholder = "Enter Your Password" 
 				secureTextEntry = "true" />
+				<TouchableHighlight style = {styles.button}>
+				<Text style={styles.buttonText}> Submit </Text>
+				</TouchableHighlight>
 			</View>
 		);
 	}
@@ -52,5 +56,17 @@ var styles = StyleSheet.create({
 		fontSize: 18,
 		borderWidth: 1, 
 		borderColor: '#48bbec'
+	},
+	button: {
+		height: 50,
+		backgroundColor: '#48BBEC',
+		alignSelf: 'stretch',
+		marginTop: 10,
+		justifyContent: 'center',
+	},
+	buttonText: {
+		fontSize: 22,
+		color: '#FFF',
+		alignSelf: 'center',
 	}
 });
