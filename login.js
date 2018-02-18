@@ -20,8 +20,10 @@ export default class Login extends Component<Props> {
 				source = {require('./Images/Octocat.jpg')} />
 				<Text style = {styles.heading}> Github Octocat </Text>
 				<TextInput style ={styles.input}
+				onChangeText={(text)=>this.setState({username:text})}
 				placeholder = "Enter Your Username" />
 				<TextInput style ={styles.input}
+				onChangeText={(text)=>this.setState({password:text})}
 				placeholder = "Enter Your Password" 
 				secureTextEntry = "true" />
 				<TouchableHighlight style = {styles.button}>
