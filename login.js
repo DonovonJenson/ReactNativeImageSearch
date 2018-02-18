@@ -16,6 +16,7 @@ export default class Login extends Component<Props> {
 			<View style={styles.container}>
 				<Image style={styles.logo}
 				source = {require('./Images/Octocat.jpg')} />
+				<Text style = {styles.heading}> Github Octocat </Text>
 			</View>
 		);
 	}
@@ -32,5 +33,9 @@ var styles = StyleSheet.create({
 	logo: {
 		width: 65,
 		height: 55
+	},
+	heading: {
+		fontSize: 30,
+		marginTop: 10,
 	}
 });
