@@ -12,10 +12,17 @@ export default class Login extends Component<Props> {
 
 	render() {
 		return (
-			<Text> Hello </Text>
+			<View style={styles.container}>
+				<Text>Oh hai mark</Text>
+			</View>
 		);
 	}
 
 }
 
-module.exports = Login;
+var styles = StyleSheet.create({
+	container: {
+		backgroundColor: '#F5FCFF',
+		flex: 1
+	}
+});
