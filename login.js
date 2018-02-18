@@ -5,7 +5,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 export default class Login extends Component<Props> {
@@ -13,7 +14,8 @@ export default class Login extends Component<Props> {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Oh hai mark</Text>
+				<Image style={styles.logo}
+				source = {require('./Images/Octocat.jpg')} />
 			</View>
 		);
 	}
@@ -23,6 +25,12 @@ export default class Login extends Component<Props> {
 var styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#F5FCFF',
-		flex: 1
+		flex: 1,
+		paddingTop: 40,
+		alignItems: 'center',
+	},
+	logo: {
+		width: 65,
+		height: 55
 	}
 });
