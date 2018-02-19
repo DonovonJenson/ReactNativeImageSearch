@@ -35,14 +35,35 @@ export default class Login extends Component{
 				Authorization : 'Basic ' + encodedAuth
 			}
 		}).then((response) =>{
+			if(response.status >= 200 && response.status < 300){
+				return response;
+			}
+
+			throw {
+				badCredentials: response.status === 401,
+				unknownError: response.status !== 401,
+			}
+
+		}).then((response) =>{
 			return response.json();
 		}).then ((results) =>{
 			console.log(results);
+			this.setState({success:true});
+		}).catch((err) => {
+			this.setState(err)
+		}). finally(()=>{
 			this.setState({showProgress:false});
 		})
 	}
 
 	render() {
+
+		let errorCtrl = <View/>
+		if (!this.state.success && (this.state.badCredentials || this.state.error)){
+			errorCtrl = <Text style ={styles.error}>
+			 That username and password didn't work
+			 </Text>
+		}
 		return (
 			<View style={styles.container}>
 				<Image style={styles.logo}
@@ -64,6 +85,7 @@ export default class Login extends Component{
 					animating = {this.state.showProgress}
 					size ="large" 
 					style={styles.activity}/>
+				{errorCtrl}
 			</View>
 		);
 	}
@@ -109,4 +131,8 @@ var styles = StyleSheet.create({
 	activity: {
 		marginTop: 20,
 	},
+	error: {
+		color: 'red',
+		paddingTop: 10,
+	}
 });
