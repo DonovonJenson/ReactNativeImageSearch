@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import Login from './login.js'
+import AppContainer from './AppContainer.js'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -28,7 +29,7 @@ export default class App extends Component{
     super(props);
 
     this.state = {
-      loggedIn:false
+      loggedIn:false,
     }
 
     this.onLogin = this.onLogin.bind(this);
@@ -40,9 +41,8 @@ export default class App extends Component{
   }
 
   render() {
-    var message = "What it do man!"
     if (this.state.loggedIn){
-      return (<Text> NICE </Text>)
+      return (<AppContainer/>)
     } else {
           return (
       <Login onLogin = {this.onLogin}/>
