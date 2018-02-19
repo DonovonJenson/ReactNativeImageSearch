@@ -36,13 +36,13 @@ export default class App extends Component{
   }
 
 
-  onLogin(){
-    this.setState({loggedIn: true})
+  onLogin(authInfo){
+    this.setState({loggedIn: true, authInfo: authInfo})
   }
 
   render() {
     if (this.state.loggedIn){
-      return (<AppContainer/>)
+      return (<AppContainer authInfo={this.state.authInfo}/>)
     } else {
           return (
       <Login onLogin = {this.onLogin}/>

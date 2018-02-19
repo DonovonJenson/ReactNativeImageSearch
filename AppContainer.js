@@ -10,14 +10,14 @@ import {
 } from 'react-native';
 
 import Login from './login.js'
+import Feed from './Feed.js'
 
 export default class AppContainer extends Component{
 
   constructor(props){
     super(props);
-
     this.state = {
-    	selectedTab: 'Feed',
+    	selectedTab: 'feed',
     }
 
   }
@@ -31,7 +31,7 @@ export default class AppContainer extends Component{
 	  	selected = {this.state.selectedTab === 'feed'}
 	  	//icon={require('./Images/Octocat.png')}
 	  	onPress={()=> this.setState({selectedTab: 'feed'})}>
-		  	<Text style = {styles.welcome}> Tab1 </Text>
+		  	<Feed authInfo={this.props.authInfo}/>
 	  	</TabBarIOS.Item>  
 	  	<TabBarIOS.Item
 	  	title = "Search"

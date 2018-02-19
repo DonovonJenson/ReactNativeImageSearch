@@ -52,7 +52,7 @@ export default class Login extends Component{
 				user: JSON.parse(zippedObj.userKey)
 			}
 			if(authInfo){
-				this.props.onLogin()
+				this.props.onLogin(authInfo)
 			};
 		})
 	}
