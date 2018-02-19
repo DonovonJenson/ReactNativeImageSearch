@@ -13,6 +13,10 @@ import {
 
 export default class Login extends Component<Props> {
 
+	onLoginPressed(){
+		console.log('Logging in as' + this.state.username)
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -26,7 +30,8 @@ export default class Login extends Component<Props> {
 				onChangeText={(text)=>this.setState({password:text})}
 				placeholder = "Enter Your Password" 
 				secureTextEntry = "true" />
-				<TouchableHighlight style = {styles.button}>
+				<TouchableHighlight style = {styles.button}
+				onPress={this.onLoginPressed.bind(this)}>
 				<Text style={styles.buttonText}> Submit </Text>
 				</TouchableHighlight>
 			</View>
