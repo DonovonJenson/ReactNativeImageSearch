@@ -1,5 +1,8 @@
 'use Strict';
 
+const authKey = 'auth';
+const userKey = 'user';
+
 import React, { Component } from 'react';
 import {
   Platform,
@@ -10,9 +13,11 @@ import {
   Image,
   ActivityIndicator, 
   TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
 import buffer from 'buffer';
+import _ from 'lodash';
 
 export default class Login extends Component{
 
@@ -22,6 +27,38 @@ export default class Login extends Component{
 			showProgress: false
 		}
 
+	}
+
+	getAuthInfo(){
+		AsyncStorage.multiGet([authKey, userKey], (err, val) =>{
+			if (err){
+				return err
+			}
+			if (!val) {
+				return 'Nothing saved';
+			}
+			var zippedObj = {
+				'authKey': val[0][1],
+				'userKey': val[1][1], 
+			}
+			if (!zippedObj.authKey){
+				return; 
+			}
+
+			let authInfo = {
+				header: {
+					Authorization: 'Basic ' + zippedObj.authKey
+				},
+				user: JSON.parse(zippedObj.userKey)
+			}
+			if(authInfo){
+				this.props.onLogin()
+			};
+		})
+	}
+
+	componentDidMount(){
+		this.getAuthInfo();
 	}
 
 	onLoginPressed(){
@@ -47,12 +84,22 @@ export default class Login extends Component{
 		}).then((response) =>{
 			return response.json();
 		}).then ((results) =>{
-			console.log(results);
+			AsyncStorage.multiSet([
+				[authKey, encodedAuth],
+				[userKey, JSON.stringify(results)]
+			], (err) => {
+				if (err){
+					throw err;
+				}
+			})
 			this.setState({success:true});
 		}).catch((err) => {
 			this.setState(err)
 		}). finally(()=>{
 			this.setState({showProgress:false});
+			if (this.state.success && this.props.onLogin){
+				this.props.onLogin();
+			}
 		})
 	}
 
