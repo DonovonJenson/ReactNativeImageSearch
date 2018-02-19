@@ -1,3 +1,3 @@
 # ReactNativeImageSearch
 
-Going through a React Native tutorial, then will re-build it specifically for image searching.
+This is a practice repo building with React Native to login to Github and display child components
