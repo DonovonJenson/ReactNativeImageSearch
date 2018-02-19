@@ -8,13 +8,38 @@ import {
   TextInput,
   View,
   Image,
+  ActivityIndicator, 
   TouchableHighlight,
 } from 'react-native';
 
-export default class Login extends Component<Props> {
+import buffer from 'buffer';
+
+export default class Login extends Component{
+
+	constructor(props){
+		super(props);
+		this.state = {
+			showProgress: false
+		}
+
+	}
 
 	onLoginPressed(){
 		console.log('Logging in as' + this.state.username)
+		this.setState({showProgress: true})
+		let b = new buffer.Buffer(`${this.state.username}:${this.state.password}`);
+		var encodedAuth = b.toString('base64'); 
+
+		fetch('https://api.github.com/user',{
+			headers: {
+				Authorization : 'Basic ' + encodedAuth
+			}
+		}).then((response) =>{
+			return response.json();
+		}).then ((results) =>{
+			console.log(results);
+			this.setState({showProgress:false});
+		})
 	}
 
 	render() {
@@ -29,11 +54,16 @@ export default class Login extends Component<Props> {
 				<TextInput style ={styles.input}
 				onChangeText={(text)=>this.setState({password:text})}
 				placeholder = "Enter Your Password" 
-				secureTextEntry = "true" />
+				secureTextEntry = {true} />
 				<TouchableHighlight style = {styles.button}
 				onPress={this.onLoginPressed.bind(this)}>
 				<Text style={styles.buttonText}> Submit </Text>
 				</TouchableHighlight>
+
+				<ActivityIndicator
+					animating = {this.state.showProgress}
+					size ="large" 
+					style={styles.activity}/>
 			</View>
 		);
 	}
@@ -75,5 +105,8 @@ var styles = StyleSheet.create({
 		fontSize: 22,
 		color: '#FFF',
 		alignSelf: 'center',
-	}
+	},
+	activity: {
+		marginTop: 20,
+	},
 });
