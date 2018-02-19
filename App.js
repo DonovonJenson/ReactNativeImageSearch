@@ -22,12 +22,32 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component{
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      loggedIn:false
+    }
+
+    this.onLogin = this.onLogin.bind(this);
+  }
+
+
+  onLogin(){
+    this.setState({loggedIn: true})
+  }
+
   render() {
     var message = "What it do man!"
-    return (
-      <Login/>
+    if (this.state.loggedIn){
+      return (<Text> NICE </Text>)
+    } else {
+          return (
+      <Login onLogin = {this.onLogin}/>
     );
+    }
   }
 }
 
