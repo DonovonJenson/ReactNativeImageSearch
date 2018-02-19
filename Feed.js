@@ -32,9 +32,9 @@ export default class Feed extends Component{
   }
 
   renderRow(rowData){
-    return <Text style = {styles.welcome}>
-    {rowData}
-    </Text>
+    return <View style={styles.row}>
+      <Text> OK </Text>
+    </View>
   }
 
   fetchFeed(){
@@ -88,5 +88,13 @@ const styles = StyleSheet.create({
     color: '#333',
     alignSelf: 'center',
     backgroundColor: '#FFF',
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 20,
+    alignItems: 'center',
+    borderColor: '#D7D7D7',
+    borderBottomWidth: 1,
   },
 });
